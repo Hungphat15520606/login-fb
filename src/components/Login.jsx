@@ -11,7 +11,7 @@ export default class Login extends Component {
   }
 
   onSubmit = () => {
-    fetch('http://localhost:4000/api/register', {
+    fetch('https://servertcm.herokuapp.com/api/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
