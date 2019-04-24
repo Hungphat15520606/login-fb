@@ -11,7 +11,7 @@ export default class Login extends Component {
   }
 
   onSubmit = () => {
-    fetch('http://localhost:5000/api/register', {
+    fetch('http://localhost:4000/api/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
